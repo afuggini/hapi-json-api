@@ -1,6 +1,6 @@
 {
   "name": "@afuggini/hapi-json-api",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Hapi plugin for enabling/enforcing JSONAPI specification",
   "main": "lib/index.js",
   "scripts": {

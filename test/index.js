@@ -12,7 +12,6 @@ const errorCheck = function (response, code, detail) {
     const payload = JSON.parse(response.payload);
     Code.expect(payload).to.include('errors');
     Code.expect(payload.errors).to.have.length(1);
-    Code.expect(payload.meta).to.include('id');
     if (detail) {
         Code.expect(payload.errors[0].detail).to.include(detail);
     }
@@ -36,7 +35,7 @@ lab.experiment('hapi-json-api', () => {
 
         const plugins = [{
             plugin: require('../'),
-            options: { meta: { test: true } }
+            options: { }
         }];
 
 
@@ -149,7 +148,6 @@ lab.experiment('hapi-json-api', () => {
                 const response = await server.inject(options);
                 errorCheck(response, 404);
                 const payload = JSON.parse(response.payload);
-                Code.expect(payload.meta.test).to.equal(true);
             });
 
             lab.test('unauthorized', async () => {
@@ -221,7 +219,6 @@ lab.experiment('hapi-json-api', () => {
             const payload = JSON.parse(response.payload);
             Code.expect(response.statusCode).to.equal(200);
             Code.expect(payload).to.part.include({ data: { id: 'ok' } });
-            Code.expect(payload.meta).to.include('id');
             Code.expect(response.headers['content-type']).to.equal('application/vnd.api+json');
         });
 
